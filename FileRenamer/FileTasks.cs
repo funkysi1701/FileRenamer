@@ -27,19 +27,7 @@ namespace FileRenamer
                 }
                 else if (Directory.Exists(item))
                 {
-                    // is Folder
-                    string folderName = Path.GetFileName(item);
-                    string newFolderName = GetNameFromDB(folderName);
-                    newFolderName = CheckLength(newFolderName, 30);
-                    string newFilePath = Path.Combine(path, newFolderName);
-                    if (folderName != newFolderName)
-                    {
-                        Directory.Move(item, newFilePath);
-                    }
-                    Console.WriteLine("Directory renamed: " + item + " to " + newFolderName);
-
-                    //Check if folder contains files/folders
-                    Rename(newFilePath);
+                    ProcessDir(path, item);
                 }
                 else
                 {
@@ -56,6 +44,42 @@ namespace FileRenamer
                 .AddJsonFile("config.json", optional: false);
 
             return builder.Build();
+        }
+
+        private static void ProcessDir(string path, string item, int i = 0)
+        {
+            // is Folder
+            string folderName = Path.GetFileName(item);
+            string newFolderName;
+            if (i > 0)
+            {
+                newFolderName = GetNameFromDB(folderName);
+                newFolderName = newFolderName.Replace("/", string.Empty);
+                newFolderName = CheckLength(newFolderName, 30);
+                newFolderName = $"{newFolderName}~{i}";
+            }
+            else
+            {
+                newFolderName = GetNameFromDB(folderName);
+                newFolderName = newFolderName.Replace("/", string.Empty);
+                newFolderName = CheckLength(newFolderName, 30);
+            }
+            
+            if (folderName != newFolderName)
+            {
+                string newFilePath = Path.Combine(path, newFolderName);
+                if (Directory.Exists(newFilePath))
+                {
+                    ProcessDir(path, item, i + 1);
+                }
+                else
+                {
+                    Directory.Move(item, newFilePath);
+                    Console.WriteLine("Directory renamed: " + item + " to " + newFolderName);
+                    //Check if folder contains files/folders
+                    Rename(newFilePath);
+                }
+            }
         }
 
         private static void ProcessFiles(string path, string item, int i = 0)
