@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/FileRenamer
+/FileRenamer/bin/Debug/net8.0
+/FileRenamer/obj

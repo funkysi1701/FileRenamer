@@ -55,6 +55,7 @@ namespace FileRenamer
             {
                 newFolderName = GetNameFromDB(folderName);
                 newFolderName = newFolderName.Replace("/", string.Empty);
+                newFolderName = newFolderName.Replace("\r\n", string.Empty);
                 newFolderName = CheckLength(newFolderName, 30);
                 newFolderName = $"{newFolderName}~{i}";
             }
@@ -62,6 +63,7 @@ namespace FileRenamer
             {
                 newFolderName = GetNameFromDB(folderName);
                 newFolderName = newFolderName.Replace("/", string.Empty);
+                newFolderName = newFolderName.Replace("\r\n", string.Empty);
                 newFolderName = CheckLength(newFolderName, 30);
             }
             
