@@ -55,14 +55,14 @@ namespace FileRenamer
             {
                 newFolderName = GetNameFromDB(folderName);
                 newFolderName = StripBadChars(newFolderName);
-                newFolderName = CheckLength(newFolderName, 30);
+                newFolderName = CheckLength(newFolderName, 25);
                 newFolderName = $"{newFolderName}~{i}";
             }
             else
             {
                 newFolderName = GetNameFromDB(folderName);
                 newFolderName = StripBadChars(newFolderName);
-                newFolderName = CheckLength(newFolderName, 30);
+                newFolderName = CheckLength(newFolderName, 25);
             }
             
             if (folderName != newFolderName)
@@ -92,14 +92,14 @@ namespace FileRenamer
             {
                 newFileName = GetNameFromDB(fileName);
                 newFileName = StripBadChars(newFileName);
-                newFileName = CheckLength(newFileName, 30);
+                newFileName = CheckLength(newFileName, 25);
                 newFileName = $"{newFileName}~{i}{ext}";
             }
             else
             {
                 newFileName = GetNameFromDB(fileName);
                 newFileName = StripBadChars(newFileName);
-                newFileName = CheckLength(newFileName, 30);
+                newFileName = CheckLength(newFileName, 25);
                 newFileName = $"{newFileName}{ext}";
             }
             if (fileName != newFileName)
@@ -122,6 +122,7 @@ namespace FileRenamer
             var output = input.Replace("/", string.Empty);
             output = output.Replace("\r\n", string.Empty);
             output = output.Replace(":", string.Empty);
+            output = output.Replace("?", string.Empty);
             return output;
         }
 
