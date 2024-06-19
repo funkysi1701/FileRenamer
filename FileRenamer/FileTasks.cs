@@ -92,11 +92,19 @@ namespace FileRenamer
             string newFileName;
             if (i > 0)
             {
-                newFileName = $"{CheckLength(GetNameFromDB(fileName), 30)}~{i}{ext}";
+                newFileName = GetNameFromDB(fileName);
+                newFileName = newFileName.Replace("/", string.Empty);
+                newFileName = newFileName.Replace("\r\n", string.Empty);
+                newFileName = CheckLength(newFileName, 30);
+                newFileName = $"{newFileName}~{i}{ext}";
             }
             else
             {
-                newFileName = $"{CheckLength(GetNameFromDB(fileName), 30)}{ext}";
+                newFileName = GetNameFromDB(fileName);
+                newFileName = newFileName.Replace("/", string.Empty);
+                newFileName = newFileName.Replace("\r\n", string.Empty);
+                newFileName = CheckLength(newFileName, 30);
+                newFileName = $"{newFileName}{ext}";
             }
             if (fileName != newFileName)
             {
