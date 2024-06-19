@@ -54,16 +54,14 @@ namespace FileRenamer
             if (i > 0)
             {
                 newFolderName = GetNameFromDB(folderName);
-                newFolderName = newFolderName.Replace("/", string.Empty);
-                newFolderName = newFolderName.Replace("\r\n", string.Empty);
+                newFolderName = StripBadChars(newFolderName);
                 newFolderName = CheckLength(newFolderName, 30);
                 newFolderName = $"{newFolderName}~{i}";
             }
             else
             {
                 newFolderName = GetNameFromDB(folderName);
-                newFolderName = newFolderName.Replace("/", string.Empty);
-                newFolderName = newFolderName.Replace("\r\n", string.Empty);
+                newFolderName = StripBadChars(newFolderName);
                 newFolderName = CheckLength(newFolderName, 30);
             }
             
@@ -93,16 +91,14 @@ namespace FileRenamer
             if (i > 0)
             {
                 newFileName = GetNameFromDB(fileName);
-                newFileName = newFileName.Replace("/", string.Empty);
-                newFileName = newFileName.Replace("\r\n", string.Empty);
+                newFileName = StripBadChars(newFileName);
                 newFileName = CheckLength(newFileName, 30);
                 newFileName = $"{newFileName}~{i}{ext}";
             }
             else
             {
                 newFileName = GetNameFromDB(fileName);
-                newFileName = newFileName.Replace("/", string.Empty);
-                newFileName = newFileName.Replace("\r\n", string.Empty);
+                newFileName = StripBadChars(newFileName);
                 newFileName = CheckLength(newFileName, 30);
                 newFileName = $"{newFileName}{ext}";
             }
@@ -119,6 +115,14 @@ namespace FileRenamer
                     Console.WriteLine("File renamed: " + item + " to " + newFileName);
                 }
             }
+        }
+
+        private static string StripBadChars(string input)
+        {
+            var output = input.Replace("/", string.Empty);
+            output = output.Replace("\r\n", string.Empty);
+            output = output.Replace(":", string.Empty);
+            return output;
         }
 
         private static string CheckLength(string newFileName, int maxlength)
