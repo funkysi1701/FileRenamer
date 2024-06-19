@@ -55,14 +55,14 @@ namespace FileRenamer
             {
                 newFolderName = GetNameFromDB(folderName);
                 newFolderName = StripBadChars(newFolderName);
-                newFolderName = CheckLength(newFolderName, 25);
+                newFolderName = CheckLength(newFolderName);
                 newFolderName = $"{newFolderName}~{i}";
             }
             else
             {
                 newFolderName = GetNameFromDB(folderName);
                 newFolderName = StripBadChars(newFolderName);
-                newFolderName = CheckLength(newFolderName, 25);
+                newFolderName = CheckLength(newFolderName);
             }
             
             if (folderName != newFolderName)
@@ -92,14 +92,14 @@ namespace FileRenamer
             {
                 newFileName = GetNameFromDB(fileName);
                 newFileName = StripBadChars(newFileName);
-                newFileName = CheckLength(newFileName, 25);
+                newFileName = CheckLength(newFileName);
                 newFileName = $"{newFileName}~{i}{ext}";
             }
             else
             {
                 newFileName = GetNameFromDB(fileName);
                 newFileName = StripBadChars(newFileName);
-                newFileName = CheckLength(newFileName, 25);
+                newFileName = CheckLength(newFileName);
                 newFileName = $"{newFileName}{ext}";
             }
             if (fileName != newFileName)
@@ -126,12 +126,14 @@ namespace FileRenamer
             return output;
         }
 
-        private static string CheckLength(string newFileName, int maxlength)
+        private static string CheckLength(string newFileName)
         {
+            var config = GetConfig();
+            var maxLength = config.GetValue<int>("MaxLength");
             var length = newFileName.Length;
-            if (length > maxlength)
+            if (length > maxLength)
             {
-                newFileName = newFileName.Substring(0, maxlength);
+                newFileName = newFileName.Substring(0, maxLength);
             }
             return newFileName;
         }

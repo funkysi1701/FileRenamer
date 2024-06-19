@@ -1,4 +1,5 @@
 {
   "Path": "",
-  "ConnectionString": ""
+  "ConnectionString": "",
+  "MaxLength": 25
 }
