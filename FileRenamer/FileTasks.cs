@@ -32,9 +32,7 @@ namespace FileRenamer
                 else
                 {
                     // invalid path
-                    var docPath = "D:\\shared\\";
-                    string[] lines = { "", "Invalid path: " + item + Environment.NewLine };
-                    File.AppendAllLines(Path.Combine(docPath, "LogFile.txt"), lines);
+                    WriteToLogFile("Invalid path: " + item);
                 }
             }
         }
@@ -78,9 +76,7 @@ namespace FileRenamer
                 {
                     Directory.Move(item, newFilePath);
                     Console.WriteLine("Directory renamed: " + item + " to " + newFilePath);
-                    var docPath = "D:\\shared\\";
-                    string[] lines = { "", "Directory renamed: " + item + " to " + newFilePath + Environment.NewLine };
-                    File.AppendAllLines(Path.Combine(docPath, "LogFile.txt"), lines);
+                    WriteToLogFile("Directory renamed: " + item + " to " + newFilePath);
                     //Check if folder contains files/folders
                     Rename(newFilePath);
                 }
@@ -118,11 +114,17 @@ namespace FileRenamer
                 {
                     File.Move(item, newFilePath);
                     Console.WriteLine("File renamed: " + item + " to " + newFilePath);
-                    var docPath = "D:\\shared\\";
-                    string[] lines = { "", "File renamed: " + item + " to " + newFilePath + Environment.NewLine };
-                    File.AppendAllLines(Path.Combine(docPath, "LogFile.txt"), lines);
+
+                    WriteToLogFile("File renamed: " + item + " to " + newFilePath);
                 }
             }
+        }
+
+        private static void WriteToLogFile(string logText)
+        {
+            var docPath = "D:\\shared\\";
+            string[] lines = { logText + Environment.NewLine };
+            File.AppendAllLines(Path.Combine(docPath, "LogFile.txt"), lines);
         }
 
         private static string StripBadChars(string input)
