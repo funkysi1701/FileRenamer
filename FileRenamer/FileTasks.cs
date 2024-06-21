@@ -32,7 +32,9 @@ namespace FileRenamer
                 else
                 {
                     // invalid path
-                    Console.WriteLine("Invalid path: " + item);// save to a log file
+                    var docPath = "D:\\shared\\";
+                    string[] lines = { "", "Invalid path: " + item + Environment.NewLine };
+                    File.AppendAllLines(Path.Combine(docPath, "LogFile.txt"), lines);
                 }
             }
         }
@@ -75,7 +77,10 @@ namespace FileRenamer
                 else
                 {
                     Directory.Move(item, newFilePath);
-                    Console.WriteLine("Directory renamed: " + item + " to " + newFolderName);
+                    Console.WriteLine("Directory renamed: " + item + " to " + newFilePath);
+                    var docPath = "D:\\shared\\";
+                    string[] lines = { "", "Directory renamed: " + item + " to " + newFilePath + Environment.NewLine };
+                    File.AppendAllLines(Path.Combine(docPath, "LogFile.txt"), lines);
                     //Check if folder contains files/folders
                     Rename(newFilePath);
                 }
@@ -112,7 +117,10 @@ namespace FileRenamer
                 else
                 {
                     File.Move(item, newFilePath);
-                    Console.WriteLine("File renamed: " + item + " to " + newFileName);
+                    Console.WriteLine("File renamed: " + item + " to " + newFilePath);
+                    var docPath = "D:\\shared\\";
+                    string[] lines = { "", "File renamed: " + item + " to " + newFilePath + Environment.NewLine };
+                    File.AppendAllLines(Path.Combine(docPath, "LogFile.txt"), lines);
                 }
             }
         }
@@ -122,6 +130,7 @@ namespace FileRenamer
             var output = input.Replace("/", string.Empty);
             output = output.Replace("\r\n", string.Empty);
             output = output.Replace(":", string.Empty);
+            output = output.Replace("'", string.Empty);
             output = output.Replace("?", string.Empty);
             return output;
         }
