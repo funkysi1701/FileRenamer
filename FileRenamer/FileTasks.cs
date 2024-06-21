@@ -130,12 +130,17 @@ namespace FileRenamer
 
         private static string StripBadChars(string input)
         {
-            var output = input.Replace("/", string.Empty);
-            output = output.Replace("\r\n", string.Empty);
-            output = output.Replace(":", string.Empty);
-            output = output.Replace("'", string.Empty);
-            output = output.Replace("?", string.Empty);
-            return output;
+            foreach (char illegal in Path.GetInvalidPathChars())
+            {
+                input = input.Replace(illegal, '_');
+            }
+
+            foreach (char illegal in Path.GetInvalidFileNameChars())
+            {
+                input = input.Replace(illegal, '_');
+            }
+
+            return input;
         }
 
         private static string CheckLength(string newFileName)
