@@ -122,7 +122,8 @@ namespace FileRenamer
 
         private static void WriteToLogFile(string logText)
         {
-            var docPath = "D:\\shared\\";
+            var config = GetConfig();
+            var docPath = config.GetValue<string>("LogLocation") ?? string.Empty;
             string[] lines = { logText + Environment.NewLine };
             File.AppendAllLines(Path.Combine(docPath, "LogFile.txt"), lines);
         }
