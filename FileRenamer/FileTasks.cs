@@ -139,7 +139,7 @@ namespace FileRenamer
             {
                 input = input.Replace(illegal, '_');
             }
-
+            input = input.Trim();
             return input;
         }
 
