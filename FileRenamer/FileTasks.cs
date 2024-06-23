@@ -152,6 +152,7 @@ namespace FileRenamer
             {
                 newFileName = newFileName.Substring(0, maxLength);
             }
+            newFileName = newFileName.Trim();
             return newFileName;
         }
 
